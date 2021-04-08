@@ -5,4 +5,4 @@ dist/
 Thumbs.db
 
 yarn-error.log
-middlewares/url.php
+src/middlewares/url.php
