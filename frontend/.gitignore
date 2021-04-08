@@ -1,8 +1,8 @@
 node_modules/
 dist/
+src/middlewares/url.js
 
 .DS_Store
 Thumbs.db
 
 yarn-error.log
-src/middlewares/url.php
