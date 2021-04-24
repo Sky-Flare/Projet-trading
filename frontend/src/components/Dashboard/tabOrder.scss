@@ -1,3 +1,4 @@
+@use 'src/styles/vars';
 .hisOrders {
   display: none;
 
@@ -38,7 +39,7 @@
   top: 0.1px;
   height: 4rem;
   max-width: 100%;
-  border-bottom: 1px #4fdb88 solid;
+  border-bottom: 1px vars.$color_green solid;
 
   &__name {
     padding: 0.25rem 0.25rem;

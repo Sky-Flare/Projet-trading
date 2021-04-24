@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
-import Crypto from './Crypto';
+import Crypto from "./Crypto";
 
-import './cryptos.scss';
+import "./cryptos.scss";
 
 let socket;
 
@@ -16,18 +16,18 @@ class Cryptos extends Component {
     const { manageLoad } = this.props;
     manageLoad();
   }
-
   componentDidUpdate() {
     const cryptosList = this.getFilteredCrypto();
-    let streams = '';
+    
+    let streams = "";
     cryptosList.forEach((crypto) => {
-      streams += '/' + crypto.pairName.toLowerCase() + '@ticker';
+      streams += "/" + crypto.pairName.toLowerCase() + "@ticker";
     });
     socket = new WebSocket(`wss://stream.binance.com:9443/ws${streams}`);
     socket.onmessage = (event) => {
       const objectData = JSON.parse(event.data);
-      const DOMquote = document.querySelector('.quote' + objectData.s);
-      const DOMvar = document.querySelector('.var' + objectData.s);
+      const DOMquote = document.querySelector(".quote" + objectData.s);
+      const DOMvar = document.querySelector(".var" + objectData.s);
       const var24h = Number.parseFloat(objectData.P).toFixed(1);
       if (DOMquote != null) {
         let quote = objectData.c;
@@ -38,7 +38,7 @@ class Cryptos extends Component {
   }
   componentWillUnmount() {
     socket.close();
-    this.props.clearFieldSearch()
+    this.props.clearFieldSearch();
   }
 
   getFilteredCrypto() {
@@ -50,25 +50,31 @@ class Cryptos extends Component {
       // on teste si la devise étudiée (en minuscule) contient
       // notre chaine de recherche (en mlinuscule elle aussi).
       // Et on renvoit le résultat...
-      return (loweredCryptoName.includes(loweredSearch) || loweredCryptoSymbol.includes(loweredSearch));
+      return (
+        loweredCryptoName.includes(loweredSearch) ||
+        loweredCryptoSymbol.includes(loweredSearch)
+      );
     });
 
     return filteredCryptoList;
   }
 
   render() {
-    const { loading, cryptos, toOrder, manageChangeSearch, search } = this.props;
+    const {
+      loading,
+      cryptos,
+      toOrder,
+      manageChangeSearch,
+      search,
+    } = this.props;
     const cryptosList = this.getFilteredCrypto();
     return (
       <div className="cryptos">
-        {loading && <div className="cryptos__waitLoadding">
-          <FontAwesomeIcon
-            size="5x"
-            color="#4fdb88"
-            icon={faSpinner}
-            spin
-          />
-        </div>}
+        {loading && (
+          <div className="cryptos__waitLoadding">
+            <FontAwesomeIcon size="5x" color="#4fdb88" icon={faSpinner} spin />
+          </div>
+        )}
         {!loading && (
           <>
             <div className="cryptos__searchBar">
@@ -80,27 +86,23 @@ class Cryptos extends Component {
                 placeholder="Rechercher"
               />
             </div>
-
             <div className="cryptos__header">
-              <div className="cryptos__logo">Nom</div>
-              <div className="cryptos__price">Dernier prix USDT</div>
-              <div className="cryptos__price24">Variation 24h</div>
+              <div className="cryptos__logo"> Nom </div>
+              <div className="cryptos__price"> Dernier prix USDT </div>
+              <div className="cryptos__price24"> Variation 24 h </div>
             </div>
             <div className="cryptos__list">
-              {
-                cryptosList.map((crypto) => (
-                  <Crypto
-                    key={crypto.symbol}
-                    {...crypto}
-                    toOrder={toOrder}
-                    cryptos={cryptos}
-                  />
-                ))
-              }
+              {cryptosList.map((crypto) => (
+                <Crypto
+                  key={crypto.symbol}
+                  {...crypto}
+                  toOrder={toOrder}
+                  cryptos={cryptos}
+                />
+              ))}
             </div>
           </>
         )}
-
       </div>
     );
   }

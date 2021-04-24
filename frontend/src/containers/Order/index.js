@@ -21,6 +21,7 @@ const mapStateToProps = (state) => ({
   symbol: state.order.symbol,
   logo: state.order.logo,
   theme: state.user.theme,
+  loading: state.order.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

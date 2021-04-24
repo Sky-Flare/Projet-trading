@@ -74,8 +74,8 @@ const Header = ({ logged, handleLogOut, USDAmount, username, theme, handleChange
                       <NavLink
                         to={`/dashboard/${username}`}
                         exact
-                        onClick={() => toDashboard()}
                         activeClassName="header__selected"
+                        onClick={() => toDashboard()}
                       >
                         Dashboard
                       </NavLink>

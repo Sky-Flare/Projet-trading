@@ -1,5 +1,6 @@
 import axios from 'axios';
 import url from './url';
+import { Redirect } from "react-router-dom";
 
 import {
   SIGNIN,
@@ -17,7 +18,6 @@ export default (store) => (next) => (action) => {
   switch (action.type) {
     case SIGNIN: {
       const { username, password } = store.getState().auth.signIn;
-
       axios.post(
         `${url}api/login_check`,
         {
@@ -25,6 +25,7 @@ export default (store) => (next) => (action) => {
           password,
         },
       ).then((response) => {
+        console.log(response);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('username', response.data.data.username);
         localStorage.setItem('USDAmount', response.data.data.USDAmount);
@@ -60,7 +61,11 @@ export default (store) => (next) => (action) => {
       ).then((response) => {
         store.dispatch(displayMessageReset(response.data.message));
       }).catch((error) => {
-        store.dispatch(displayMessageReset(error.response.data.message))
+        if (error.statut === 403) {
+          store.dispatch(displayMessageReset(error.response.data.message))
+        }else{
+          store.dispatch(displayMessageReset('Un problème inattendu est survenu. Nous travaillons dessus, veuillez réessayer plus tard.'))
+        }
       });
       next(action);
       break;
@@ -76,6 +81,7 @@ export default (store) => (next) => (action) => {
           password_second: newPasswordVerify,
         }),
       ).then((response) => {
+        console.log(response);
         store.dispatch(displayMessageNewPass(response.data.message));
       }).catch((error) => {
         store.dispatch(displayMessageNewPass(error.response.data.message))

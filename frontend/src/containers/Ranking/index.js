@@ -3,6 +3,13 @@ import { connect } from 'react-redux';
 import Ranking from 'src/components/Ranking';
 
 import { fetchUsersRanking } from 'src/actions/ranking';
+import {
+  fecthHisPortfolio,
+  fetchHisOrders,
+  fecthHisCryptos,
+  resetLoading,
+  fetchHisRank,
+} from "../../actions/dashboard";
 
 const mapStateToProps = (state) => ({
   username: state.user.username,
@@ -13,6 +20,15 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   manageLoadRank: () => {
     dispatch(fetchUsersRanking());
+  },
+  manageLoad: (username) => {
+    dispatch(fecthHisPortfolio(username));
+    dispatch(fetchHisOrders(username));
+    dispatch(fecthHisCryptos(username));
+    dispatch(fetchHisRank(username));
+  },
+  resetLoading: () => {
+    dispatch(resetLoading());
   },
 });
 

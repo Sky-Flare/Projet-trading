@@ -37,6 +37,7 @@ const Field = ({
         placeholder={placeholder}
         name={name}
         onChange={handleChange}
+        required
       />
     </div>
   );

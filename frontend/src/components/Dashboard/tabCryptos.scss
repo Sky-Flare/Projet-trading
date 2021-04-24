@@ -1,3 +1,5 @@
+@use 'src/styles/vars';
+
 .hisCryptos {
   height: 16rem;
   overflow: scroll;
@@ -30,13 +32,13 @@
   }
 
   &__table::-webkit-scrollbar-thumb {
-    background: #4fdb88;
+    background: vars.$color_green;
   }
 }
 
 .headerTableCryptos {
   border-bottom: none;
-  background-color: #181c27;
+  background-color: vars.$backgroud_color;
   z-index: 1;
   padding-bottom: 0;
 }
@@ -50,7 +52,7 @@
   top: 0.1px;
   height: 4rem;
   max-width: 100%;
-  border-bottom: 1px #4fdb88 solid;
+  border-bottom: 1px vars.$color_green solid;
   width: 100%;
 
   &__logo {

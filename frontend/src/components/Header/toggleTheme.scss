@@ -1,3 +1,4 @@
+@use 'src/styles/vars';
 #cbx {
   display: none;
 }
@@ -44,7 +45,7 @@
     margin: -18px;
     width: 56px;
     height: 56px;
-    background: rgba(#181c27,.5);
+    background: rgba(vars.$backgroud_color,.5);
     border-radius: 50%;
     transform: scale(0);
     opacity: 1;
@@ -54,19 +55,19 @@
 
 #cbx:checked + .toggle {
   &:before {
-    background: #181c27;
+    background: vars.$backgroud_color;
   }
 
   .spanToggle {
-    background: #181c27;
+    background: vars.$backgroud_color;
     transform: translateX(20px);
     transition: all .2s cubic-bezier(.8,.4,.3,1.25), background .15s ease;
-    box-shadow: 0 3px 8px rgba(#181c27,.2);
+    box-shadow: 0 3px 8px rgba(vars.$backgroud_color,.2);
   }
 
   &:before {
     transform: scale(1);
     transition: all .4s ease;
-    background-color: #181c27;
+    background-color: vars.$backgroud_color;
   }
 }

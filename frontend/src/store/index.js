@@ -10,7 +10,7 @@ import ranking from 'src/middlewares/ranking';
 import dashboard from 'src/middlewares/dashboard';
 
 
-// import du reducer combine
+// Import du reducer combine
 import reducer from 'src/reducers';
 
 const store = createStore(reducer, composeWithDevTools(

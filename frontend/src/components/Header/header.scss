@@ -1,3 +1,4 @@
+@use 'src/styles/vars';
 .header {
   padding: 1rem;
 
@@ -23,7 +24,7 @@
     & h1 {
       font-weight: 700;
       font-size: 1.6rem;
-      color: #4fdb88;
+      color: vars.$color_green;
       margin-right: 1rem;
     }
 
@@ -34,7 +35,7 @@
     }
 
     & .iconBurger {
-      color: #4fdb88;
+      color: vars.$color_green;
     }
 
     & .navDesktop {
@@ -45,7 +46,7 @@
   & nav {
     height: 100vh;
     width: 100vw;
-    background-color: #181c27;
+    background-color: vars.$backgroud_color;
     color: white;
     position: absolute;
     right: 0;
@@ -70,7 +71,7 @@
     & .buttonMenuCross {
       background: none;
       border: none;
-      color: #4fdb88;
+      color: vars.$color_green;
     }
   }
 
@@ -86,7 +87,7 @@
 
   &__selected {
     font-weight: bold;
-    color: #4fdb88;
+    color: vars.$color_green;
   }
 }
 
@@ -97,7 +98,7 @@
 
   &__solde {
     border-radius: 10px;
-    border: 1px #4fdb88 solid;
+    border: 1px vars.$color_green solid;
     padding: 1rem 6rem;
     font-size: 1.2rem;
     margin-top: 1rem;
@@ -108,7 +109,7 @@
   & button {
     border: none;
     border-radius: 10px;
-    background: #4fdb88;
+    background: vars.$color_green;
     padding: 1rem 6rem;
     font-size: 1.2rem;
     margin-top: 1rem;
@@ -121,7 +122,9 @@
   .buttonMenuBurger {
     display: none;
   }
-
+.tg-list-item{
+  padding-right: 1rem;
+}
   .header {
     padding: 1rem 4rem;
 
@@ -129,7 +132,7 @@
       align-items: center;
 
       & h1 {
-        margin-right: 2rem;
+        padding-right: 1rem;
         white-space: nowrap;
       }
     }
@@ -170,7 +173,7 @@
       margin: 0;
 
       &__solde {
-        border: 2px solid #4fdb88;
+        border: 2px solid vars.$color_green;
         background: none;
         border-radius: 5px;
         padding: 0.3rem 1rem;
@@ -182,7 +185,7 @@
       }
 
       & .buttonAuth {
-        border: 2px solid #4fdb88;
+        border: 2px solid vars.$color_green;
         background: none;
         border-radius: 5px;
         padding: 0.3rem 1rem;
@@ -206,8 +209,8 @@
 
         &.logout {
           border-radius: 5px;
-          background: #4fdb88;
-          color: #181c27;
+          background: vars.$color_green;
+          color: vars.$backgroud_color;
         }
       }
     }
@@ -239,18 +242,18 @@
     & nav {
 
       & ul {
-        color: #181c27;
+        color: vars.$backgroud_color;
       }
     }
 
     & .buttonLogin .buttonAuth {
-      color: #181c27;
+      color: vars.$backgroud_color;
     }
   }
 
 
   & .buttonLogin__solde {
-    color: #181c27;
+    color: vars.$backgroud_color;
   }
 }
 

@@ -8,7 +8,7 @@ import NewPassword from './NewPassword';
 import './connexion.scss'
 
 const Connexion = ({
-  // le path de la page courante
+  // la page courante
   page,
   // page connexion
   usernameSignIn,

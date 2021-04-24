@@ -1,15 +1,17 @@
+@use 'src/styles/vars';
+
 .app{
   position:relative;
   height:100vh;
   overflow: hidden;
 
   &.dark{
-    background-color: #181c27;
+    background-color:vars.$backgroud_color;
   }
   
   &.light{
     background-color: white;
-    color: #181c27;
+    color: vars.$backgroud_color;
   }
 }
 

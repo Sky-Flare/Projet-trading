@@ -1,3 +1,5 @@
+@use 'src/styles/vars';
+
 .notFound {
   height: 84%;
   width: 100%;
@@ -26,7 +28,7 @@
   & .notFound{
     &__title{
 
-      color: #181c27;
+      color: vars.$backgroud_color;
     }
   }
 }

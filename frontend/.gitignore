@@ -1,6 +1,5 @@
 node_modules/
 dist/
-src/middlewares/url.js
 
 .DS_Store
 Thumbs.db

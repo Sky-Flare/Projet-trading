@@ -35,11 +35,11 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
+        
         main:
             anonymous: true
             lazy: true
             provider: app_user_provider
-
 
         
 

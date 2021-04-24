@@ -5,7 +5,7 @@ import SymfoIcon from '../../assets/Images/symfony-282493.png';
 import { FaLinkedin } from 'react-icons/fa';
 
 
-import "./Card.css";
+import "./card.scss";
 
 const Card = ({ name, fonction, link, image, speciality, fonction2 }) => {
 

@@ -39,7 +39,7 @@ const SignIn = ({
           <NavLink to="/inscription" exact>
             <div className="signInRedirection">Pas encore de compte ?</div>
           </NavLink>
-          <NavLink to="/recuperationMdp" exact>
+          <NavLink to="/recuperation-mot-de-passe" exact>
             <div className="signInRedirection">Mot de passe perdu ?</div>
           </NavLink>
           <button type="submit">

@@ -1,3 +1,5 @@
+@use 'src/styles/vars';
+
 .connexion {
   width: 100vw;
   display: flex;
@@ -47,7 +49,7 @@
       & button {
         border: none;
         border-radius: 10px;
-        background: #4fdb88;
+        background: vars.$color_green;
         padding: 1rem 2.5rem;
         font-size: 1.2rem;
         margin-top: 0.5rem;
@@ -58,7 +60,7 @@
     &__form>div {
       & input {
         background: none;
-        border: 2px solid #4fdb88;
+        border: 2px solid vars.$color_green;
         border-radius: 5px;
         padding: 1rem;
         font-size: 1.2rem;
@@ -88,7 +90,7 @@
   padding: 1rem;
 
   &__green {
-    color: #4fdb88;
+    color: vars.$color_green;
     font-size: 1.2rem;
     text-align: center;
     padding: 1rem;
@@ -97,32 +99,32 @@
 .light {
   & .connexion {
       & h2{
-      color: #181c27;
+      color: vars.$backgroud_color;
     }
 
     & .resetPassword,
     & .newPass,
     & .signIn,
     & .signUp {
-      color: #181c27;
+      color: vars.$backgroud_color;
 
       &__form>div {
         & input {
-          color: #181c27;
+          color: vars.$backgroud_color;
 
           &::placeholder {
-            color: #181c27c5;
+            color: vars.$backgroud_color;
           }
         }
         & label{
-          color: #181c27;
+          color: vars.$backgroud_color;
         }
       }
     }
 
     .signInRedirection,
     .signUpRedirection {
-      color: #181c27;
+      color: vars.$backgroud_color;
     }
   }
 }

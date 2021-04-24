@@ -1,3 +1,4 @@
+@use 'src/styles/vars';
 .ranking {
   display: flex;
   justify-content: center;
@@ -20,7 +21,7 @@
           position: sticky;
           top: 0;
           z-index: 1;
-          background: #4fdb88;
+          background: vars.$color_green;
         }
 
         & th:nth-of-type(1) {
@@ -63,10 +64,10 @@
 
       & tr:nth-of-type(even) {
         background-color: #11141b;
-        color: #4fdb88;
+        color: vars.$color_green;
       }
       & tr.myPosition{
-        background: #4fdb88ad;
+        background: vars.$color_green;
         animation-duration: 0.2s;
         animation-name: clignoter;
         animation-iteration-count: 3;
@@ -220,8 +221,8 @@
     }
 
     & tr:nth-of-type(even) {
-      background-color: #181c27;
-      color: #4fdb88;
+      background-color: vars.$backgroud_color;
+      color: vars.$color_green;
     }
   }
 }

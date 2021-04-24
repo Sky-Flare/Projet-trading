@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 
-import './About.css';
+import './about.scss';
 import './theme.scss';
 import Card from "./Card";
 import { FaGithub } from 'react-icons/fa';
@@ -41,7 +41,7 @@ const LinkGitHub = "https://github.com/O-clock-McFly/projet-concours-trading";
 
 const About = () => (
 
-  <div className="About">
+  <div className="about">
 
     <h1 className="Title">Présentation de l'équipe</h1>
 

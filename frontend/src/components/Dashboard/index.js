@@ -18,12 +18,10 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const { manageLoad, username } = this.props;
+    const {  username } = this.props;
     if (this.props.match.params.slug != username) {
       this.setState({ slugUser: this.props.match.params.slug })
-      manageLoad(this.props.match.params.slug);
     } else {
-      manageLoad(username);
       this.setState({ slugUser: username })
     }
   }
@@ -49,11 +47,11 @@ class Dashboard extends Component {
       theme,
     } = this.props;
     const colorGraph = theme ? '#fff' : '#181c27';
-    let loading = true;
     const amountCrypto = [];
     const labelCrypto = [];
     const portfolioDate = [];
     const portfolioAmount = [];
+    let loading = true;
     if (
       loadingHisPortfolio === false
       && loadingHisCryptos === false
@@ -77,9 +75,6 @@ class Dashboard extends Component {
       }
     }
     const graphCryptos = {
-      chart: {
-        type: 'donut',
-      },
       title: {
         text: 'Valeur en USDT'
       },
@@ -103,14 +98,6 @@ class Dashboard extends Component {
         options: {
           chart: {
             width: 450
-          },
-        }
-      },
-      {
-        breakpoint: 700,
-        options: {
-          chart: {
-            width: 480
           },
         }
       },
@@ -140,10 +127,6 @@ class Dashboard extends Component {
       options: {
         legende: {
           show: false
-        },
-        chart: {
-          height: 500,
-          type: 'bar',
         },
         theme: {
           monochrome: {

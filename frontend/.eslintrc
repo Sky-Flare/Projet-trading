@@ -1,12 +1,16 @@
 {
   "extends": "airbnb",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+],
   "parser": "babel-eslint",
   "env": {
     "browser": true
   },
   "rules": {
     "brace-style": ["error", "stroustrup"],
-    "linebreak-style": ["error", "windows", "unix"],
+    "linebreak-style": [ "windows"],
     "no-param-reassign": [
       "error",
       {

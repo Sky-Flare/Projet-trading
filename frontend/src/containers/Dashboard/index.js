@@ -20,14 +20,18 @@ const mapStateToProps = (state) => ({
   hisOrders: state.dashboard.hisOrders,
   hisPortfolio: state.dashboard.hisPortfolio,
   hisRank: state.dashboard.hisRank,
+
   username: state.user.username,
+
   loadingHisCryptos: state.dashboard.loadingHisCryptos,
   loadingHisOrders: state.dashboard.loadingHisOrders,
   loadingHisPortfolio: state.dashboard.loadingHisPortfolio,
   loadingHisRank: state.dashboard.loadingHisRank,
+
   displayCryptos: state.dashboard.displayCryptos,
   displayOrders: state.dashboard.displayOrders,
   displayPortfolio: state.dashboard.displayPortfolio,
+  
   theme: state.user.theme,
 });
 

@@ -24,9 +24,10 @@ export default (store) => (next) => (action) => {
           quotation,
         }),
       ).then((response) => {
-        store.dispatch(orderPassed(response.data));
+          store.dispatch(orderPassed(response.data));
+        
       }).catch((error) => {
-        store.dispatch(errorOrderPassed(error.response.data.message))
+          store.dispatch(errorOrderPassed(error.response.data.message))
       });
 
       next(action);

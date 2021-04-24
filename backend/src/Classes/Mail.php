@@ -9,7 +9,7 @@ use Symfony\Component\Mime\Email;
 
 class Mail
 {
-    private $From = "contact.cryptomatch@gmail.com";
+    private $From = "cryptoadmtest@gmail.com";
     private $To = null;
     private $Message = null;
     private $Subject = "Redéfinition de votre mot de passe";

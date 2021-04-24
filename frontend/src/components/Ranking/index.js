@@ -12,6 +12,8 @@ const Ranking = ({
   users,
   loading,
   manageLoadRank,
+  manageLoad,
+  resetLoading,
 }) => {
   useEffect(
     manageLoadRank,
@@ -43,6 +45,8 @@ const Ranking = ({
               users.map((user) => (
                 <User
                   key={user.username}
+                  manageLoad={manageLoad}
+                  resetLoading={resetLoading}
                   myUsername={username}
                   {...user}
                 />
@@ -63,6 +67,8 @@ Ranking.proptypes = {
   ).isRequired,
   loading: PropTypes.bool.isRequired,
   manageLoadRank: PropTypes.func.isRequired,
+  manageLoad: PropTypes.func.isRequired,
+  resetLoading: PropTypes.func.isRequired,
 }
 
 export default Ranking;

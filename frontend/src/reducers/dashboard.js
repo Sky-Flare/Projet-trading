@@ -11,10 +11,13 @@ const initialState = {
   hisCryptos: [],
   hisOrders: [],
   hisRank: 0,
+  hisPortfolio:[],
+
   loadingHisRank: true,
   loadingHisCryptos: true,
   loadingHisOrders: true,
   loadingHisPortfolio: true,
+
   displayCryptos: '__actived',
   displayOrders: '',
   displayPortfolio: '',
@@ -58,6 +61,7 @@ export default (state = initialState, action) => {
         ...state,
         hisCryptos: [],
         hisOrders: [],
+        hisPortfolio: [],
         loadingHisCryptos: true,
         loadingHisOrders: true,
         loadingHisPortfolio: true,

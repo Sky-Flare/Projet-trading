@@ -1,3 +1,5 @@
+@use 'src/styles/vars';
+
 .order {
   color: #fff;
   display: flex;
@@ -73,7 +75,7 @@
     text-align: center;
     &-green {
       padding-bottom: 0.5rem;
-      color: #4fdb88;
+      color: vars.$color_green;
     }
   }
 
@@ -96,11 +98,11 @@
     & button {
       border: none;
       border-radius: 10px;
-      background: #4fdb88;
+      background: vars.$color_green;
       padding: .5rem 3rem;
       font-weight: 600;
       font-size: 1rem;
-      color: #181c27;
+      color: vars.$backgroud_color;
       margin-top: 1rem;
     }
   }
@@ -119,7 +121,7 @@
   justify-content: space-around;
 
   &__Buy {
-    background-color: #4fdb88;
+    background-color: vars.$color_green;
   }
 
   &__Sell {
@@ -195,7 +197,7 @@ article {
       border-radius: 19px;
       border: none;
       padding: 0.7rem 2rem;
-    font-size: 1.2rem;
+      font-size: 1.2rem;
     }
   }
 
@@ -208,11 +210,11 @@ article {
 
 .light {
   & .order {
-    color: #181c27;
+    color: vars.$backgroud_color;
 
     &__field input {
       background-color: white;
-      color: #181c27;
+      color: vars.$backgroud_color;
     }
   }
 }
