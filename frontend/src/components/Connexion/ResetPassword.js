@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Field from './Field';
+
+//DEMANDE DE REINITIALISATION DU PASS
 
 const ResetPassword = ({
   username,
   changeField,
   handleResetPass,
   messageResetPass,
+  resetMessage
 }) => {
+  //Effet de nettoyage(vide les input au demontage du composant)
+  useEffect( () => {
+     return () => {
+       resetMessage();
+    };
+  } , []);
+
+  //Soumission du formulaire
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleResetPass();
   };
+
   const valideNewMessage = 
   messageResetPass === 'Vous allez recevor un e-mail contenant un lien afin de redéfinir votre mot de passe'
   ? 'message__green' : 'message';
+  
   return (
     <div className="resetPassword">
       <h2>Entrez votre pseudo pour reinitialiser pour votre mot de passe</h2>

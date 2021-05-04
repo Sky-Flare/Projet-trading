@@ -9,8 +9,9 @@
   &__actived {
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 90vh;
     z-index: 0;
+    align-items: center;
   }
 
   &__table {
@@ -21,14 +22,15 @@
   }
 
 }
-@media screen and (min-width:1080px){
+@media screen and (min-width:1280px){
   .hisPortfolio{
+    
     &__actived{
       display: flex;
       align-self: center;
       align-items: center;
       width: 90%;
-      height: 85%;
+      height: 80%;
       padding-left: 5rem;
       box-shadow: 3px 3px 24px -1px #000;
       align-items: center;

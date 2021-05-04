@@ -2,45 +2,57 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+import "./cryptos.scss";
 import Crypto from "./Crypto";
 
-import "./cryptos.scss";
 
 let socket;
+
+//PAGE LISTE DES CRYPTOMONNAIES
 
 class Cryptos extends Component {
   constructor(props) {
     super(props);
   }
+
+  //Recherche des cryptomonnaies
   componentDidMount() {
     const { manageLoad } = this.props;
     manageLoad();
   }
+
+  //Lancement de websocket
   componentDidUpdate() {
+    //Tableau des cryptomonnaies
     const cryptosList = this.getFilteredCrypto();
     
     let streams = "";
     cryptosList.forEach((crypto) => {
       streams += "/" + crypto.pairName.toLowerCase() + "@ticker";
     });
+    //API de Binance
     socket = new WebSocket(`wss://stream.binance.com:9443/ws${streams}`);
     socket.onmessage = (event) => {
       const objectData = JSON.parse(event.data);
+      //Div de la quotation de la crytpomonnaie
       const DOMquote = document.querySelector(".quote" + objectData.s);
+      //DIV de la valorisation de la cryptomonnaie
       const DOMvar = document.querySelector(".var" + objectData.s);
       const var24h = Number.parseFloat(objectData.P).toFixed(1);
       if (DOMquote != null) {
-        let quote = objectData.c;
-        DOMquote.textContent = quote;
+        DOMquote.textContent = objectData.c;
         DOMvar.textContent = var24h + " %";
       }
     };
   }
+
+  //Fermeture de socket et réinitialisation de la barre de recherche
   componentWillUnmount() {
     socket.close();
     this.props.clearFieldSearch();
   }
 
+  //Barre de recherche dynamique
   getFilteredCrypto() {
     const { search, cryptos } = this.props;
     const loweredSearch = search.toLowerCase();
@@ -70,6 +82,7 @@ class Cryptos extends Component {
     const cryptosList = this.getFilteredCrypto();
     return (
       <div className="cryptos">
+        {/* Affichage du loader tant les cryptos ne sont pas chargées */}
         {loading && (
           <div className="cryptos__waitLoadding">
             <FontAwesomeIcon size="5x" color="#4fdb88" icon={faSpinner} spin />

@@ -17,19 +17,24 @@ import Ranking from "src/containers/Ranking";
 import "./app.scss";
 import NotFound from "../NotFound";
 
-// == Composant
 
 const App = ({ logged, getUserDataLocal, theme }) => {
+  //Recherche si des infos sont dispo dans le local storage
   useEffect(getUserDataLocal, []);
+
   const classTheme = theme ? "dark" : "light";
 
   return (
     <div className={`app ${classTheme}`}>
       <Header />
       <Switch>
+
+        {/* Accueil  */}
         <Route path="/" exact>
           <Home />
         </Route>
+
+        {/* Connexion */}
         <Route path="/connexion" exact>
           {
           logged 
@@ -37,6 +42,8 @@ const App = ({ logged, getUserDataLocal, theme }) => {
           : <Connexion page="signIn" />
           }
         </Route>
+
+        {/* Inscription */}
         <Route path="/inscription" exact>
           {
           logged 
@@ -44,9 +51,13 @@ const App = ({ logged, getUserDataLocal, theme }) => {
           : <Connexion page="signUp" /> 
           }
         </Route>
+
+        {/* Demande de récupération du mot de passe */}
         <Route path="/recuperation-mot-de-passe" exact>
           <Connexion page="resetPass" />
         </Route>
+
+        {/* Mise à jour du mot de passe */}
         <Route path="/nouveau-mot-de-passe/:slug">
           {
           logged 
@@ -54,6 +65,8 @@ const App = ({ logged, getUserDataLocal, theme }) => {
           : <Connexion page="newPass" /> 
           }
         </Route>
+
+        {/* Page de passation d'ordre */}
         <Route path="/ordre/:slug">
           {
           logged 
@@ -61,9 +74,13 @@ const App = ({ logged, getUserDataLocal, theme }) => {
           : <Redirect to="/connexion" />
           }
         </Route>
+
+        {/* Liste des cryptomonnaies */}
         <Route path="/cryptomonnaies" exact>
           <Cryptos />
         </Route>
+
+        {/* Tableau de bord des utilisateurs */}
         <Route path="/dashboard/:slug" exact>
           {
           logged 
@@ -71,15 +88,22 @@ const App = ({ logged, getUserDataLocal, theme }) => {
           : <Redirect to="/connexion" />
           }
         </Route>
+
+        {/* Classement */}
         <Route path="/classement" exact>
           <Ranking />
         </Route>
+
+        {/* Qui sommes nous */}
         <Route path="/qui-sommes-nous" exact>
           <About />
         </Route>
+
+        {/* Page 404 */}
         <Route>
           <NotFound />
         </Route>
+        
       </Switch>
     </div>
   );

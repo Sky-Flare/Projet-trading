@@ -17,13 +17,18 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // composant de connexion
-  toOrder: (pairname,name, symbol, logo) => {
-    dispatch(toOrder(pairname,name, symbol, logo));
-  },
+  //Recherceh des crytpomonnaies
   manageLoad: () => {
     dispatch(fetchCrypto());
   },
+  
+  //Vers un passage d'ordre
+  toOrder: (pairname,name, symbol, logo) => {
+    dispatch(toOrder(pairname,name, symbol, logo));
+  },
+
+
+  //Mise à jour de la barre de recherche / Réinitialisation
   manageChangeSearch: (newSearch) => {
     dispatch(changeSearch(newSearch));
   },

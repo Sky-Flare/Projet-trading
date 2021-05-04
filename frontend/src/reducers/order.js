@@ -10,18 +10,23 @@ import { TO_ORDER } from '../actions/crypto';
 import {ERROR_ORDER_PASSED} from '../actions/errorsApi';
 
 const initialState = {
+  //Quantité ou montant saisie par l'utilisateur
   quantity: 0,
   amount: 0,
+  //Infomation de la cryptomonnaie
   pairname: '',
   name: '',
   logo: '',
   symbol: '',
-  message: null,
+  //Quantité détenu par l'utilisateur
   actualQuantityPair: 0,
+  //Message d'information pour l'utilisateur 
+  message: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+
     case UPDATE_FIELD_AMOUNT:
       return {
         ...state,
@@ -34,6 +39,8 @@ export default (state = initialState, action) => {
         quantity: action.newQuantity,
         amount: action.amount,
       };
+
+    //REPONSE API
     case ORDER_PASSED:
       return {
         ...state,
@@ -77,6 +84,7 @@ export default (state = initialState, action) => {
         ...state,
         message: action.message,
       }
+      
     default: // Si le reducer ne sait pas traiter l'action, il renvoie une copie du state
       return {
         ...state,

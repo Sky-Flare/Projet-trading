@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
+//UN UTILISATEUR DANS LE CLASSEMENT
+
 const User = ({
   rank,
   username,
@@ -15,10 +17,13 @@ const User = ({
   const evolutionRound = Math.round(evolution*100)/10;
   const signeEvolution = evolution > 0 ? '+' : ''; 
   const myPosition = myUsername === username ? 'myPosition' : '';
+
+  //Vers le dashboard de l'utilisateur
   const toDashboard = () => {
     resetLoading();
     manageLoad(username);
   }
+  
   return(
     <tr className={myPosition}>
       <td>{rank}</td>

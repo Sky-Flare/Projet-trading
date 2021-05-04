@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 
 import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 
+/* 
+Graphique de l'évolution de la cryptomonnaies
+https://www.tradingview.com/widget/advanced-chart/ 
+*/
+
 const Graphic = ({ pairName, theme }) => {
 
   const changeTheme = theme ? Themes.DARK : Themes.LIGHT

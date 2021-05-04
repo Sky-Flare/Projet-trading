@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+
+//UNE CRYPTOMONNAIE 
+
 const Crypto = ({
   logo,
   symbol,
@@ -10,10 +13,13 @@ const Crypto = ({
   toOrder,
   priceChangePercent24h,
 }) => {
+
   const percentAround = Math.round(priceChangePercent24h*100)/100;
+
   const handleClick = () => {
     toOrder(pairName, name, symbol, logo);
   };
+  
   return (
     <div className="cryptos__crypto">
       <NavLink className='link' to={`/ordre/${pairName}`} onClick={handleClick}>

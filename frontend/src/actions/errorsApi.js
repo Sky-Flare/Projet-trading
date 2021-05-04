@@ -6,13 +6,15 @@ export const errorOrderPassed = (message) => ({
   type: ERROR_ORDER_PASSED,
   message,
 });
+
 export const errorAuthSignUp = (message, username, email) => ({
   type: ERROR_AUTH_SIGNUP,
   message,
   username,
   email,
 });
+
 export const errorSignIn = (message) => ({
   type: ERROR_SIGNIN,
   message,
-})
+});

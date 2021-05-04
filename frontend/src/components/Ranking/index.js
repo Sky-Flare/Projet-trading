@@ -7,6 +7,8 @@ import User from './User'
 
 import './ranking.scss'
 
+//PAGE CLASSEMENT
+
 const Ranking = ({
   username,
   users,
@@ -15,6 +17,8 @@ const Ranking = ({
   manageLoad,
   resetLoading,
 }) => {
+
+  //Recherche du classement
   useEffect(
     manageLoadRank,
     [],
@@ -22,6 +26,7 @@ const Ranking = ({
 
   return (
     <div className="ranking">
+      {/* Loader pendant le chargement du classement */}
       {loading && <div className="ranking__waitLoadding">
           <FontAwesomeIcon
             size="5x"
@@ -30,6 +35,8 @@ const Ranking = ({
             spin
           />
         </div>}
+
+      {/*Classement  */}
       {!loading && (
         <table>
           <thead>

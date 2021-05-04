@@ -10,12 +10,14 @@ import './connexion.scss'
 const Connexion = ({
   // la page courante
   page,
+
   // page connexion
   usernameSignIn,
   passwordSignIn,
   changeFieldSignIn,
   handleSignIn,
   messageSignIn,
+
   // page inscription
   messageSignUp,
   handleSignUp,
@@ -25,11 +27,14 @@ const Connexion = ({
   email,
   changeFieldSignUp,
   handleDiplayMessage,
+
   //page resetPass
   usernameRestPass,
   changeFieldResetPass,
   handleResetPass,
   messageResetPass,
+  resetMessageRestPass,
+
   //page newPassword
   newPassword,
   newPasswordVerify,
@@ -65,6 +70,7 @@ const Connexion = ({
         username={usernameRestPass}
         changeField={changeFieldResetPass}
         handleResetPass={handleResetPass}
+        resetMessage={resetMessageRestPass}
         messageResetPass={messageResetPass}
       />
   } else if (page === 'newPass') {
@@ -79,7 +85,7 @@ const Connexion = ({
   }
 
 
-  // On retourne le composant à afficher suivant le path
+  // On retourne le composant à afficher
   return (
     <div className="connexion">
       {componentToDisplayed}
@@ -108,7 +114,8 @@ Connexion.propTypes = {
   usernameRestPass: PropTypes.string.isRequired,
   changeFieldResetPass: PropTypes.func.isRequired,
   handleResetPass: PropTypes.func.isRequired,
-  messageResetPass: PropTypes.string.isRequired,
+  handleResetPass: PropTypes.func.isRequired,
+  resetMessageRestPass: PropTypes.func.isRequired,
 
   newPassword: PropTypes.string.isRequired,
   newPasswordVerify: PropTypes.string.isRequired,

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import Field from './Field';
 
+//CONNEXION
+
 const SignIn = ({
   username,
   password,
@@ -11,10 +13,12 @@ const SignIn = ({
   handleSignIn,
   messageSignIn,
 }) => {
+//Soumission du formulaire
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleSignIn();
   };
+
   return (
     <div className="signIn">
       <h2>Ravi de vous revoir !</h2>

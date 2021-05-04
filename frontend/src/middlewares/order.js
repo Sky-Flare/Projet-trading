@@ -9,6 +9,8 @@ import {logOut} from 'src/actions/settings'
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
+
+    //Passage d'ordre
     case PLACE_THE_ORDER: {
       const instance = axios.create({
         baseURL: url,
@@ -34,6 +36,8 @@ export default (store) => (next) => (action) => {
       break;
     }
 
+
+    //Information necessaire pour passer un ordre
     case TO_ORDER: {
       const { pairname } = action;
       const instance = axios.create({
@@ -49,12 +53,11 @@ export default (store) => (next) => (action) => {
         store.dispatch(logOut());
         }
       });
-
       next(action);
       break;
     }
+    
     default:
-      // si cette action ne nous interesse pas, on la laisse passer
       next(action);
   }
 };

@@ -5,6 +5,8 @@ import { FETCH_USERS_RANKING, saveUsersRanking } from '../actions/ranking';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
+
+    //Classement des utilisateurs 
     case FETCH_USERS_RANKING: {
       axios.get(
          `${url}ranking`,

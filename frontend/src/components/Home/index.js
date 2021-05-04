@@ -7,8 +7,11 @@ import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons';
 import './home.scss';
 import './BackgroundImage.css';
 
+//PAGE D'ACCUEIL
+
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
+
   const classDivRules = isVisible ? 'home__rules__visible' : 'home__rules__hidden';
   const classRules = isVisible ? 'home__rules visible' : 'home__rules hidden';
   const classButton = isVisible ? 'handleRules visible' : 'handleRules hidden';
@@ -16,12 +19,11 @@ const Home = () => {
   const classDot = isVisible ? 'dot-hidden' : 'dot-visible';
   const classChevron = isVisible ? 'iconCheveronTop' : 'iconCheveronDown';
   const classHomeAlign = isVisible ? 'homeAlign' : 'homeNotAlign';
+
   return (
 
     <div className={`home ${classHomeAlign}`}>
-
       <div className="ImageCover" ></div>
-
       <h2>Bienvenue sur Crypto Match</h2>
       <div className={classRules}>
         <div className={classRulesP}>

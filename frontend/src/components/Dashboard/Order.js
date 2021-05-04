@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './dashboard.scss';
 
-import { NavLink } from 'react-router-dom';
+//UNE LIGNE DE L'HISTORIQUE D'ORDRE DU DASHBOARD
 const Order = ({
   pairname,quantity,quotation,orderType,amount,createdAt
 }) => {
+
   const date = new Date(createdAt);
   const years = date.toLocaleDateString();
   const hours = date.toLocaleTimeString('fr');
   const amoutnAround = Math.round(amount*100)/100;
   const quantityAround = Math.round(quantity*10000)/10000;
+  
   return (
     <div className="hisOrder">
           <div className="hisOrder__createdAt">{years} {hours}</div>

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import Field from './Field';
 
+//INSCRIPTION
+
 const SignUp = ({
   username,
   email,
@@ -14,6 +16,8 @@ const SignUp = ({
   passwordVerify,
   handleDiplayMessage,
 }) => {
+
+  //Soumission du formulaire/ vérification des mot de passe et de l'email
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (passwordVerify != password) {
@@ -26,10 +30,12 @@ const SignUp = ({
 
     }
   };
-  let displayMessage = "message"
-    if (messageSignUp == 'Inscription réussie') {
-      displayMessage = 'message__green'
-    } 
+
+  let displayMessage = "message";
+
+  if (messageSignUp == 'Inscription réussie') {
+     displayMessage = 'message__green'
+  } 
   
 
   return (

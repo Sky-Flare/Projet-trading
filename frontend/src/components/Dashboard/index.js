@@ -3,20 +3,22 @@ import ReactApexChart from 'react-apexcharts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { withRouter, useLocation } from "react-router";
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+
 import './dashboard.scss';
 import './tabCryptos.scss';
 import './tabPortfolio.scss';
 import './tabOrder.scss';
+
 import Crypto from './Crypto';
 import Order from './Order';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-
     this.state = { displayCryptos: '__actived', displayOrders: '', displayPortfolio: '' };
   }
 
+  //Identification du dashboard
   componentDidMount() {
     const {  username } = this.props;
     if (this.props.match.params.slug != username) {
@@ -25,28 +27,38 @@ class Dashboard extends Component {
       this.setState({ slugUser: username })
     }
   }
+
+  //Réinitialisation des données du Dashboard
   componentWillUnmount() {
     this.props.resetLoading();
   }
+
   render() {
     const {
+      theme,
+      username,
+      //Loader pour chaque groupe données
       loadingHisPortfolio,
       loadingHisCryptos,
       loadingHisOrders,
       loadingHisRank,
+      //Données
       hisCryptos,
       hisOrders,
       hisPortfolio,
       hisRank,
-      username,
+      //Changement d'onglet
       handleClickTab,
+      //Affichage des onglets
       displayCryptos,
       displayOrders,
       displayPortfolio,
+      //Chercher les informations necessaire au passage d'ordre d'une crypto
       toOrder,
-      theme,
     } = this.props;
+    
     const colorGraph = theme ? '#fff' : '#181c27';
+
     const amountCrypto = [];
     const labelCrypto = [];
     const portfolioDate = [];
@@ -74,6 +86,7 @@ class Dashboard extends Component {
         })
       }
     }
+    //Grpahique pourcentage de cryptomonnaie
     const graphCryptos = {
       title: {
         text: 'Valeur en USDT'
@@ -89,15 +102,15 @@ class Dashboard extends Component {
         breakpoint: 480,
         options: {
           chart: {
-            width: 350
+            width: 325
           },
         }
       },
       {
-        breakpoint: 700,
+        breakpoint: 1280,
         options: {
           chart: {
-            width: 450
+            width: 350
           },
         }
       },
@@ -119,6 +132,7 @@ class Dashboard extends Component {
       }
       ],
     }
+    //Graphique évolution du compte
     const graphPortfolio = {
       series: [{
         name: 'Montant',
@@ -190,7 +204,7 @@ class Dashboard extends Component {
         },
         title: {
           text: 'Evolution quotidienne de la valorisation',
-          floating: true,
+          floating: false,
           offsetY: 610,
           align: 'center',
           style: {
@@ -223,7 +237,15 @@ class Dashboard extends Component {
           }
         },
         {
-          breakpoint: 900,
+          breakpoint: 960,
+          options: {
+            chart: {
+              width: 650
+            },
+          }
+        },
+        {
+          breakpoint: 1080,
           options: {
             chart: {
               width: 700
@@ -231,24 +253,33 @@ class Dashboard extends Component {
           }
         },
         {
-          breakpoint: 1000,
+          breakpoint: 1024,
           options: {
             chart: {
-              width: 800
+              width: 750
             },
           }
         },
         {
-          breakpoint: 1200,
+          breakpoint: 1366,
           options: {
             chart: {
-              width: 900
+              width: 750
             },
           }
-        }
+        },
+        {
+          breakpoint: 1920,
+          options: {
+            chart: {
+              width: 750
+            },
+          }
+        },
         ],
       }
     }
+
     return (
       <div className="dashboard" >
         {
@@ -256,6 +287,8 @@ class Dashboard extends Component {
             ? <h2 className="dashboard__title">Bienvenue sur votre dashboard {username}</h2>
             : <h2 className="dashboard__title">Dashboard de {this.state.slugUser}</h2>
         }
+
+        {/* Affichage du chargment de la page tant que les données ne sont pas chargées */}
         { loading && <div className="cryptos__waitLoadding">
           <FontAwesomeIcon
             size="5x"
@@ -264,6 +297,7 @@ class Dashboard extends Component {
             spin
           />
         </div>}
+
         {!loading && (
           <>
             <div className="dashboard__onglet" >
@@ -298,6 +332,8 @@ class Dashboard extends Component {
                 }
               </button>
             </div>
+
+            {/* ONGLET CRYPTO */}
             <div className={`hisCryptos${displayCryptos} hisCryptos`}>
               <div className="hisCryptos__table">
                 <div className="hisCrypto headerTableCryptos">
@@ -325,10 +361,25 @@ class Dashboard extends Component {
                   options={graphCryptos}
                   series={amountCrypto}
                   type="donut"
-                  width="700"
+                  width="650"
                 />
               </div>
             </div>
+
+            {/* ONGLET EVOLUTION DU COMPTE */}
+            <div className={`hisPortfolio${displayPortfolio}`}>
+              <h3 className="hisPortfolio__title">
+                {`Position dans le classement : n°${hisRank}`}
+              </h3>
+              <ReactApexChart
+                options={graphPortfolio.options}
+                series={graphPortfolio.series}
+                type="bar"
+                width="775"
+              />
+            </div>
+
+            {/* ONGLET HISTORIQUE D'ORDRE */}
             <div className={`hisOrders${displayOrders}`}>
               <div className="hisOrders__table">
                 <div className="hisOrder headerTableOrders">
@@ -351,18 +402,6 @@ class Dashboard extends Component {
                     <div>Vous n'avez pas passé d'ordre</div>
                 }
               </div>
-
-            </div>
-            <div className={`hisPortfolio${displayPortfolio}`}>
-              <h3 className="hisPortfolio__title">
-                {`Position dans le classement : n°${hisRank}`}
-              </h3>
-              <ReactApexChart
-                options={graphPortfolio.options}
-                series={graphPortfolio.series}
-                type="bar"
-                width="1000"
-              />
             </div>
           </>
 

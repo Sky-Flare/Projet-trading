@@ -12,10 +12,16 @@ import {
   NEW_PASS,
   displayMessageNewPass,
 } from '../actions/settings';
-import { errorAuthSignUp, errorSignIn } from 'src/actions/errorsApi';
+
+import { 
+  errorAuthSignUp, 
+  errorSignIn 
+} from 'src/actions/errorsApi';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
+
+    //Connexion
     case SIGNIN: {
       const { username, password } = store.getState().auth.signIn;
       axios.post(
@@ -37,6 +43,8 @@ export default (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    //Inscription
     case SIGNUP: {
       const { username, password, email } = store.getState().auth.signUp;
       axios.post(
@@ -54,6 +62,8 @@ export default (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    //Demande de réinitialisation de password
     case RESET_PASS: {
       const { username } = store.getState().auth.reset;
       axios.get(
@@ -70,6 +80,8 @@ export default (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    //Réinitialisation de mot de passe
     case NEW_PASS: {
       const instance = axios.create({
         baseURL: url,
@@ -89,8 +101,8 @@ export default (store) => (next) => (action) => {
       next(action);
       break;
     }
+
     default:
-      // si cette action ne nous interesse pas, on la laisse passer
       next(action);
   }
 };

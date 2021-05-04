@@ -18,15 +18,18 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  //Chargement du classement
   manageLoadRank: () => {
     dispatch(fetchUsersRanking());
   },
+  //Recherche des informations necessaire au dashboard avec le nom de l'utilisateur choisis
   manageLoad: (username) => {
     dispatch(fecthHisPortfolio(username));
     dispatch(fetchHisOrders(username));
     dispatch(fecthHisCryptos(username));
     dispatch(fetchHisRank(username));
   },
+  //Remise à zéro du state Dashboard
   resetLoading: () => {
     dispatch(resetLoading());
   },

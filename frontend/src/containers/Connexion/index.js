@@ -12,24 +12,29 @@ import {
   resetPass,
   updateNewPassField,
   newPass,
+  resetMessageRestPass,
 } from '../../actions/settings';
 
 const mapStateToProps = (state) => ({
   // sommes nous connecté
   logged: state.user.logged,
+
   // composant de connexion
   usernameSignIn: state.auth.signIn.username,
   passwordSignIn: state.auth.signIn.password,
   messageSignIn: state.auth.signIn.message,
+
   // composant d'inscription
   usernameSignUp: state.auth.signUp.username,
   passwordSignUp: state.auth.signUp.password,
   passwordVerifySignUp: state.auth.signUp.passwordVerify,
   email: state.auth.signUp.email,
   messageSignUp: state.auth.signUp.message,
+
    // composant récupération de mot de passe
    usernameRestPass: state.auth.reset.username,
    messageResetPass: state.auth.reset.message,
+
    // composant nouveaux mot de passe
    newPassword: state.auth.newPass.newPassword,
    newPasswordVerify: state.auth.newPass.newPasswordVerify,
@@ -41,7 +46,6 @@ const mapDispatchToProps = (dispatch) => ({
   changeFieldSignIn: (newValue, fieldName) => {
     dispatch(updateSingnInField(newValue, fieldName));
   },
-
   handleSignIn: () => {
     dispatch(signIn());
   },
@@ -63,6 +67,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleResetPass: () => {
     dispatch(resetPass());
+  },
+  resetMessageRestPass: () => {
+    dispatch(resetMessageRestPass())
   },
 
    // composant du nouveau du mot de passe

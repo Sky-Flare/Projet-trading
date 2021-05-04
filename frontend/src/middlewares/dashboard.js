@@ -14,6 +14,8 @@ import {
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
+
+    //Recherche de l'historique d'ordre
     case FETCH_HIS_ORDERS: {
       axios.get(
         `${url}orders/${action.username}`,
@@ -25,6 +27,8 @@ export default (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    //Recherche des cryptomonnaies détenu
     case FECTH_HIS_CRYPTOS: {
       axios.get(
         `${url}portfolio/${action.username}`,
@@ -36,6 +40,8 @@ export default (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    //Recherche de l'évolution du compte
     case FETCH_HIS_PORTFOLIO: {
       axios.get(
         `${url}histoval/${action.username}`,
@@ -48,6 +54,8 @@ export default (store) => (next) => (action) => {
       next(action);
       break;
     }
+
+    //Recherche de la position dan sle classement
     case FETCH_HIS_RANK: {
       axios.get(
         `${url}rank/${action.username}`,
@@ -62,7 +70,6 @@ export default (store) => (next) => (action) => {
     }
 
     default:
-      // si cette action ne nous interesse pas, on la laisse passer
       next(action);
   }
 };

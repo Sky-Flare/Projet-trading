@@ -5,6 +5,8 @@ import { FETCH_CRYPTO, saveCryptos } from '../actions/crypto';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
+
+    //Recherhce des cryptomonnaies
     case FETCH_CRYPTO: {
       axios.get(
         `${url}cryptos`,

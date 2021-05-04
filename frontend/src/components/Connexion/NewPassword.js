@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import Field from './Field';
 
+//MISE A JOUR DU MOT DE PASSE
+
 const NewPassword = ({
   newPassword,
   newPasswordVerify,
@@ -11,12 +13,17 @@ const NewPassword = ({
   handleChangePass,
   messageNewPass,
 }) => {
+  //Récupération du token dans le slug de l'url
   const { slug } = useParams()
+
+  //Soumission du formulaire 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleChangePass(slug);
   };
+
   const valideNewMessage = messageNewPass == 'Votre mot de passe a bien été modifié.' ? 'message__green' : 'message';
+  
   return (
     <div className="newPass">
       <h2>Entrez votre nouveau mot de passe</h2>

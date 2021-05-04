@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './dashboard.scss';
 import { NavLink } from 'react-router-dom';
 
+//UNE CRYPTOMONNAIE DANS LE DASHBOARD
+
 const Crypto = ({
   toOrder,
   actualQuantity,
@@ -14,9 +16,12 @@ const Crypto = ({
   realTimePrice,
   logoUrl
 }) => {
+
+  //Vers la page de passation d'ordre
   const handleClick = () => {
     toOrder(pairName, name, symbol, logoUrl);
   };
+
   const percent = ((realTimePrice/buyingPrice)*100)-100
   const percentAround = Math.round(percent*100)/100;
   const realTimeUSDTAmountAround = Math.round(realTimeUSDTAmount*10000)/10000;
@@ -27,6 +32,7 @@ const Crypto = ({
   }else{
     perncentClass = 'lessValue';
   }
+
   return (
     <NavLink className='link' to={`/ordre/${pairName}`} onClick={handleClick} >
       <div className="hisCrypto">

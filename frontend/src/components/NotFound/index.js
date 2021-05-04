@@ -1,6 +1,8 @@
 import React from 'react';
 import './notFound.scss'
 
+//Page 404 
+
 const NotFound = () => (
   <div className="notFound">
       <div className="notFound__img">

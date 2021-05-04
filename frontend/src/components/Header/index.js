@@ -1,24 +1,43 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCalendarTimes, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBars,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 // == Import Scss
-import './header.scss';
-import './toggleTheme.scss';
+import "./header.scss";
+import "./toggleTheme.scss";
 
-const Header = ({ logged, handleLogOut, USDAmount, username, theme, handleChangeTheme, manageLoad, resetLoading }) => {
+//MENU 
+
+const Header = ({
+  logged,
+  handleLogOut,
+  USDAmount,
+  username,
+  theme,
+  handleChangeTheme,
+  manageLoad,
+  resetLoading,
+}) => {
+
+  //Gestion de l'ouverture et fermeture du menu en mobile
   const [isOpen, setIsOpen] = useState(false);
-  const classNav = isOpen ? 'header__nav-open nav' : 'header__nav-close nav';
+  const classNav = isOpen ? "header__nav-open nav" : "header__nav-close nav";
+
   const aroundSold = Math.round(USDAmount);
+
+  //Vers la page de dashboard de l'utilisateur connecté 
   const toDashboard = () => {
     resetLoading();
     manageLoad(username);
     setIsOpen(false);
-  }
-  return (
+  };
 
+  return (
     <header className="header">
       <div className="header__container">
         <div className="header__container__title">
@@ -29,8 +48,14 @@ const Header = ({ logged, handleLogOut, USDAmount, username, theme, handleChange
               </NavLink>
             </h1>
             <div className="tg-list-item">
-              <input id="cbx" type="checkbox" onClick={() => handleChangeTheme(!theme)}></input>
-              <label htmlFor="cbx" className="toggle"><span className="spanToggle"></span></label>
+              <input
+                id="cbx"
+                type="checkbox"
+                onClick={() => handleChangeTheme(!theme)}
+              ></input>
+              <label htmlFor="cbx" className="toggle">
+                <span className="spanToggle"></span>
+              </label>
             </div>
           </div>
 
@@ -39,11 +64,7 @@ const Header = ({ logged, handleLogOut, USDAmount, username, theme, handleChange
             type="button"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <FontAwesomeIcon
-              className="iconBurger"
-              size="2x"
-              icon={faBars}
-            />
+            <FontAwesomeIcon className="iconBurger" size="2x" icon={faBars} />
           </button>
           <nav className={classNav}>
             <ul>
@@ -67,22 +88,18 @@ const Header = ({ logged, handleLogOut, USDAmount, username, theme, handleChange
                   Cryptomonnaies
                 </NavLink>
               </li>
-              {
-                logged
-                  ? (
-                    <li>
-                      <NavLink
-                        to={`/dashboard/${username}`}
-                        exact
-                        activeClassName="header__selected"
-                        onClick={() => toDashboard()}
-                      >
-                        Dashboard
-                      </NavLink>
-                    </li>
-                  )
-                  : null
-              }
+              {logged ? (
+                <li>
+                  <NavLink
+                    to={`/dashboard/${username}`}
+                    exact
+                    activeClassName="header__selected"
+                    onClick={() => toDashboard()}
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+              ) : null}
               <li>
                 <NavLink
                   to="/classement"
@@ -105,27 +122,41 @@ const Header = ({ logged, handleLogOut, USDAmount, username, theme, handleChange
               </li>
             </ul>
             <div className="buttonLogin">
-              {
-                logged
-                  ? (
-                    <>
-                      <div className="buttonLogin__solde">{username} : {aroundSold} USDT</div>
-                      <button className="buttonAuth logout" type="button" onClick={handleLogOut}>Déconnexion</button>
-                    </>
-                  ) :
-                  <>
-                    <NavLink to="/connexion" exact>
-                      <button className="buttonAuth login" type="button" onClick={() => setIsOpen(false)}>
-                        Connexion
-                        </button>
-                    </NavLink>
-                    <NavLink to="/inscription" exact>
-                      <button className="buttonAuth signin" type="button" onClick={() => setIsOpen(false)}>
-                        Inscription
+              {logged ? (
+                <>
+                  <div className="buttonLogin__solde">
+                    {username} : {aroundSold} USDT
+                  </div>
+                  <button
+                    className="buttonAuth logout"
+                    type="button"
+                    onClick={handleLogOut}
+                  >
+                    Déconnexion
+                  </button>
+                </>
+              ) : (
+                <>
+                  <NavLink to="/connexion" exact>
+                    <button
+                      className="buttonAuth login"
+                      type="button"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Connexion
                     </button>
-                    </NavLink>
-                  </>
-              }
+                  </NavLink>
+                  <NavLink to="/inscription" exact>
+                    <button
+                      className="buttonAuth signin"
+                      type="button"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Inscription
+                    </button>
+                  </NavLink>
+                </>
+              )}
             </div>
 
             <button
@@ -133,11 +164,7 @@ const Header = ({ logged, handleLogOut, USDAmount, username, theme, handleChange
               type="button"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <FontAwesomeIcon
-                className="iconCross"
-                size="3x"
-                icon={faTimes}
-              />
+              <FontAwesomeIcon className="iconCross" size="3x" icon={faTimes} />
             </button>
           </nav>
         </div>

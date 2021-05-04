@@ -8,12 +8,15 @@ import Field from "./Field";
 import "./order.scss";
 let socket;
 
+//PAGE DE PASSATION D'ORDRE
+
 class Order extends Component {
   constructor(props) {
     super(props);
     this.state = { typeAction: "", quotation: null };
   }
 
+  //Mise en place de la quoation en temps réel via l'API de Bianance 
   componentDidMount() {
     const pair = "/" + this.props.pairname.toLowerCase() + "@aggTrade";
     socket = new WebSocket(`wss://stream.binance.com:9443/ws${pair}`);
@@ -25,10 +28,13 @@ class Order extends Component {
       this.state.quotation = quote;
     };
   }
+
+  //Nettoyage des input et fermetur de websocket
   componentWillUnmount() {
     socket.close();
     this.props.removeDataField();
   }
+
   render() {
     const {
       quantity,
@@ -39,26 +45,27 @@ class Order extends Component {
       actualQuantityPair,
       message,
       handlePlaceTheOrder,
-      handleDiplayMessage,
+      handleDiplayMessageOrder,
       changeFieldQuantity,
       changeFieldAmount,
       symbol,
       logo,
       theme,
     } = this.props;
+
     const handleSubmit = (event) => {
       event.preventDefault();
       if (quantity === 0) {
-        handleDiplayMessage("Saisissez un nombre");
+        handleDiplayMessageOrder("Saisissez un nombre");
       } else {
         if (this.state.typeAction === "Buy") {
           if (USDAmount < quantity * this.state.quotation) {
-            handleDiplayMessage("Vous n'avez pas les fonds necessaires");
+            handleDiplayMessageOrder("Vous n'avez pas les fonds necessaires");
           } else if (
             document.querySelector(".order__price-quotation").textContent ==
             "Cotation en chargement"
           ) {
-            handleDiplayMessage(
+            handleDiplayMessageOrder(
               "Patientez pendant le chargement de la valorisation"
             );
           } else {
@@ -67,12 +74,12 @@ class Order extends Component {
         }
         if (this.state.typeAction === "Sell") {
           if (actualQuantityPair < quantity) {
-            handleDiplayMessage(`Vous n\'avez pas assez de ${name}`);
+            handleDiplayMessageOrder(`Vous n\'avez pas assez de ${name}`);
           } else if (
             document.querySelector(".order__price-quotation").textContent ==
             "Cotation en chargement"
           ) {
-            handleDiplayMessage(
+            handleDiplayMessageOrder(
               "Patientez pendant le chargement de la cotation"
             );
           } else {
@@ -81,8 +88,6 @@ class Order extends Component {
         }
       }
     };
-    const actualQuantityPairAround =
-      Math.round(actualQuantityPair * 100000) / 100000;
 
     const Amount = Math.round(USDAmount * 100) / 100;
     let displaymMessage =
@@ -90,6 +95,7 @@ class Order extends Component {
     if (message === "Ordre Enregistré") {
       displaymMessage = "order__messageDisplay-green";
     }
+    
     return (
       <div className="order">
         <h2 className="order__orderTitle"> Passer un ordre </h2>

@@ -8,36 +8,38 @@ import {
   UPDATE_RESET_PASS_FIELD,
   DISPLAY_MESSAGE_NEW_PASS,
   UPDATE_NEW_PASS_FIELD,
-} from '../actions/settings';
-import { ERROR_AUTH_SIGNUP, ERROR_SIGNIN } from 'src/actions/errorsApi';
+  RESET_MESSAGE_RESET_PASS,
+} from "../actions/settings";
+
+import { ERROR_AUTH_SIGNUP, ERROR_SIGNIN } from "src/actions/errorsApi";
 
 const initialState = {
   signIn: {
-    username: '',
-    password: '',
-    message: '',
+    username: "",
+    password: "",
+    message: "",
   },
   signUp: {
-    username: '',
-    password: '',
-    email: '',
-    message: '',
-    passwordVerify: '',
+    username: "",
+    password: "",
+    email: "",
+    message: "",
+    passwordVerify: "",
   },
   reset: {
-    username: '',
-    message: '',
+    username: "",
+    message: "",
   },
   newPass: {
-    newPassword: '',
-    newPasswordVerify: '',
-    message: '',
-  }
+    newPassword: "",
+    newPasswordVerify: "",
+    message: "",
+  },
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // Met à jour le state signIn
+    // Met à jour des champs de connexion
     case UPDATE_SIGNIN_FIELD:
       return {
         ...state,
@@ -48,7 +50,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    // Met à jour le state signUp
+    // Met à jour des champs d'inscription
     case UPDATE_SIGNUP_FIELD:
       return {
         ...state,
@@ -58,17 +60,21 @@ export default (state = initialState, action) => {
           [action.fieldName]: action.newValue,
         },
       };
+
+    //Inscription (REPONSE API)
     case USER_REGISTRATION:
       return {
         ...state,
         signUp: {
           ...state.signUp,
-          username: '',
-          password: '',
-          email: '',
+          username: "",
+          password: "",
+          email: "",
           message: action.message,
         },
       };
+
+    //Connexion (REPONSE API)
     case SAVE_USER_DATA:
       return {
         ...state,
@@ -76,6 +82,8 @@ export default (state = initialState, action) => {
           ...state.signIn,
         },
       };
+
+    //Erreur dans l'inscription (REPONSE API)
     case ERROR_AUTH_SIGNUP:
       return {
         ...state,
@@ -83,66 +91,90 @@ export default (state = initialState, action) => {
           message: action.message,
           username: action.username,
           email: action.email,
-          password: '',
-          passwordVerify: '',
-        }
+          password: "",
+          passwordVerify: "",
+        },
       };
+
+    //Message erreur d'inscription avant envoie à l'API
     case DISPLAY_ERROR_MESSAGE_AUTH_SIGN_UP:
       return {
         ...state,
         signUp: {
           message: action.message,
           username: action.username,
-          password: '',
+          password: "",
           email: action.email,
-          passwordVerify: '',
-        }
+          passwordVerify: "",
+        },
       };
+
+    //Message d'erreur (RETOUR API)
     case ERROR_SIGNIN:
       return {
         ...state,
         signIn: {
           message: action.message,
-          username: '',
-          password: '',
-        }
+          username: "",
+          password: "",
+        },
       };
+
+    //Message demande de réinitialisation de password (REPONSE API)
     case DISPLAY_MESSAGE_RESET:
       return {
         ...state,
         reset: {
           ...state.reset,
           message: action.message,
-          username: '',
-        }
+          username: "",
+        },
       };
+
+    //Champ demande de reset pass
     case UPDATE_RESET_PASS_FIELD:
       return {
         ...state,
         reset: {
           ...state.reset,
           [action.fieldName]: action.newValue,
-        }
-      }
+        },
+      };
+
+    //Message mise à jour du pass (REPONSE API)
     case DISPLAY_MESSAGE_NEW_PASS:
       return {
         ...state,
         newPass: {
-          newPassword: '',
-          newPasswordVerify: '',
+          newPassword: "",
+          newPasswordVerify: "",
           message: action.message,
-        }
+        },
+      };
 
-      }
+    //Champs mise à jour de password
     case UPDATE_NEW_PASS_FIELD:
       return {
         ...state,
         newPass: {
           ...state.newPass,
           [action.fieldName]: action.newValue,
-        }
-      }
-    default: // Si le reducer ne sait pas traiter l'action, il renvoie une copie du state
+        },
+      };
+
+    //Remise à zéro du message mise a jour du mot de passe
+    case RESET_MESSAGE_RESET_PASS:
+      return {
+        ...state,
+        reset: {
+          username: "",
+          message: "",
+        },
+      };
+
+    default:
+      
+      // Si le reducer ne sait pas traiter l'action, il renvoie une copie du state
       return {
         ...state,
       };
