@@ -13,10 +13,17 @@ const Field = ({
   placeholder,
   onChange,
   quotation,
+  changeAuto,
 }) => {
   const handleChange = (evt) => {
     // On récupére la valeur de l'input et son nom
-    onChange(evt.target.value,quotation );
+    onChange(parseFloat(evt.target.value ));
+    if (name === 'quantity') {
+       changeAuto(evt.target.value * quotation);
+    }else{
+      changeAuto(evt.target.value / quotation);
+    }
+   
   };
 
   const inputId = `field-${name}`;
@@ -50,6 +57,7 @@ Field.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  changeAuto: PropTypes.func.isRequired,
 };
 
 // Valeurs par défaut pour les props

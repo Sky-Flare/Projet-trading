@@ -82,7 +82,9 @@
   &__messageNone {
     display: none;
   }
-
+  &__usdAmout{
+    padding-bottom: 0.5rem;
+  }
   &__cryptoAmount {
     padding-bottom: 0.5rem;
   }
@@ -104,6 +106,15 @@
       font-size: 1rem;
       color: vars.$backgroud_color;
       margin-top: 1rem;
+    }
+  }
+
+  &__buttonMax{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &--none{
+      display:none;
     }
   }
 
@@ -145,13 +156,11 @@ article {
     display: flex;
     align-items: center;
     height: 91vh;
+    
     &__passed{
       width: 47%;
       height: 70%;
       justify-content: center;
-      & div{
-        padding-bottom: 1rem;
-      }
       & img{
         padding-bottom: 1rem;
       }
@@ -183,9 +192,6 @@ article {
     &__passed{
       width: 35%;
       height: 80%;
-      & div{
-        padding-bottom: 1rem;
-      }
     }
     &__graph {
      

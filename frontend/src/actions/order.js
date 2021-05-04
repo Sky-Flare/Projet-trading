@@ -7,28 +7,13 @@ export const UPDATE_FIELD_QUANTITY = "UPDATE_FIELD_QUANTITY";
 export const REMOVE_DATA_FIELD_ORDER = "REMOVE_DATA_FIELD_ORDER";
 
 //Passage d'ordre
-export const placeTheOrder = (ordertype, quotation) => ({
+export const placeTheOrder = (ordertype, quotation, quantity, pairname) => ({
   type: PLACE_THE_ORDER,
   ordertype,
+  quantity,
+  pairname,
   quotation,
 });
-
-//Changement de la valeur du champ du montant
-export const updateFieldAmount = (newAmount, quotation) => {
-  return {
-    type: UPDATE_FIELD_AMOUNT,
-    newAmount,
-    quantity: newAmount / quotation,
-  };
-};
-//Changement de la valeur du champ de la quantité
-export const updateFieldQuantity = (newQuantity, quotation) => {
-  return {
-    type: UPDATE_FIELD_QUANTITY,
-    newQuantity,
-    amount: newQuantity * quotation,
-  };
-};
 
 //Ordre passé Reponse API
 export const orderPassed = (response) => ({
@@ -43,7 +28,6 @@ export const actualQuantityPair = (actualPair) => ({
   type: ACTUAL_QUANTITY_PAIR,
   actualPair,
 });
-
 
 export const displayMessageOrder = (message) => ({
   type: DISPLAY_MESSAGE_ORDER,

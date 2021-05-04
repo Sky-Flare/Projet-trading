@@ -16,8 +16,7 @@ export default (store) => (next) => (action) => {
         baseURL: url,
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      const { quantity, pairname } = store.getState().order;
-      const { quotation, ordertype } = action;
+      const { quotation, ordertype, quantity, pairname } = action;
       instance.post(
         'api/v1/order', JSON.stringify({
           quantity,

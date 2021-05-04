@@ -5,8 +5,6 @@ import Order from 'src/components/Order';
 import {
   placeTheOrder,
   displayMessageOrder,
-  updateFieldQuantity,
-  updateFieldAmount,
   removeDataFieldOrder,
 } from '../../actions/order';
 
@@ -14,10 +12,6 @@ const mapStateToProps = (state) => ({
   //Information de l'utilisateur
   USDAmount: state.user.USDAmount,
   theme: state.user.theme,
-
-  //Quantité de cryptomonnaie ou montant saisie
-  quantity: state.order.quantity,
-  amount: state.order.amount,
 
   //Information de la cryptomonnaie
   pairname: state.order.pairname,
@@ -34,16 +28,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   //Passage d'ordre
-  handlePlaceTheOrder: (ordertype, quotation) => {
-    dispatch(placeTheOrder(ordertype, quotation));
-  },
-
-  //Mise à jour des champs de saisie
-  changeFieldAmount: (newAmount, quotation) => {
-    dispatch(updateFieldAmount(parseFloat(newAmount), quotation));
-  },
-  changeFieldQuantity: (newQuantity, quotation) => {
-    dispatch(updateFieldQuantity(parseFloat(newQuantity), quotation));
+  handlePlaceTheOrder: (ordertype, quotation, quantity, pairname) => {
+    dispatch(placeTheOrder(ordertype, quotation, quantity, pairname));
   },
 
   //Message de passage d'ordre

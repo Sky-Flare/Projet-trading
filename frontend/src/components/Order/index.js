@@ -1,4 +1,4 @@
-import React, { useEffect, useState  } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import Graphic from "./Graphic";
@@ -8,8 +8,6 @@ import "./order.scss";
 //PAGE DE PASSATION D'ORDRE
 
 const Order = ({
-  quantity,
-  amount,
   USDAmount,
   pairname,
   name,
@@ -17,18 +15,22 @@ const Order = ({
   message,
   handlePlaceTheOrder,
   handleDiplayMessageOrder,
-  changeFieldQuantity,
-  changeFieldAmount,
   symbol,
   logo,
   theme,
   removeDataField,
 }) => {
   let socket;
-  const [typeAction, setTypeAction] = useState('');
+  const [typeAction, setTypeAction] = useState("");
   const [quotation, setQuotation] = useState(0);
+  const [fieldAmount, setFieldAmount] = useState(0);
+  const [fieldCrypto, setFielCrypto] = useState(0);
+  const changeAutoValue = () => {
+    setFielCrypto(actualQuantityPair);
+    setFieldAmount(actualQuantityPair*quotation);
+  }
 
-  //Montage: websocket ppour la cotation
+  //Montage: websocket pour la cotation
   //Démontage fermeture de websocket et remise à zéro des champs de saisie
   useEffect(() => {
     const pair = "/" + pairname.toLowerCase() + "@aggTrade";
@@ -48,11 +50,11 @@ const Order = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (quantity === 0) {
+    if (fieldCrypto === 0) {
       handleDiplayMessageOrder("Saisissez un nombre");
     } else {
       if (typeAction === "Buy") {
-        if (USDAmount < quantity * quotation) {
+        if (USDAmount < fieldCrypto * quotation) {
           handleDiplayMessageOrder("Vous n'avez pas les fonds necessaires");
         } else if (
           document.querySelector(".order__price-quotation").textContent ==
@@ -62,11 +64,13 @@ const Order = ({
             "Patientez pendant le chargement de la valorisation"
           );
         } else {
-          handlePlaceTheOrder(typeAction, quotation);
+          handlePlaceTheOrder(typeAction, quotation, fieldCrypto, pairname);
+          setFielCrypto(0);
+          setFieldAmount(0);
         }
       }
       if (typeAction === "Sell") {
-        if (actualQuantityPair < quantity) {
+        if (actualQuantityPair < fieldCrypto) {
           handleDiplayMessageOrder(`Vous n\'avez pas assez de ${name}`);
         } else if (
           document.querySelector(".order__price-quotation").textContent ==
@@ -76,7 +80,9 @@ const Order = ({
             "Patientez pendant le chargement de la cotation"
           );
         } else {
-          handlePlaceTheOrder(typeAction, quotation);
+          handlePlaceTheOrder(typeAction, quotation, fieldCrypto, pairname);
+          setFielCrypto(0);
+          setFieldAmount(0);
         }
       }
     }
@@ -88,72 +94,81 @@ const Order = ({
   if (message === "Ordre Enregistré") {
     displaymMessage = "order__messageDisplay-green";
   }
+  let displayButtonMax = actualQuantityPair > 0 ? "buttonMax" : "buttonMax--none"
 
   return (
     <div className="order">
-        <h2 className="order__orderTitle"> Passer un ordre </h2>
-        <div className="order__graph">
-          <Graphic pairName={pairname} theme={theme} />
-          <div className="order__passed">
-            <div className="order__pair">
-              <img className="order__pair-logo" src={logo} alt={pairname}>
-              </img>
-              <div className="order__pair-pairname"> {pairname} </div>
-              <div className="order__pair-subtitle"> {name} </div>
-            </div>
-            <div className="order__price">
-              <div className="order__price-name"> 1 {symbol} = </div>
-              <div className="order__price-quotation">
-                Cotation en chargement
-              </div>
-              <div className="order__price-value"> USDT </div>
-            </div>
-            <div className={displaymMessage}> {message} </div>
-            <div className="order__usdAmout">
-              Fonds disponibles: {Amount.toLocaleString()}
-              USDT
-            </div>
-            <div className="order__cryptoAmount">
-              Quantité de {symbol}
-              detenus: {actualQuantityPair}
-            </div>
-            <form onSubmit={handleSubmit}>
-              <Field
-                name="quantity"
-                type="number"
-                placeholder={`${symbol} :`}
-                value={quantity}
-                quotation={quotation}
-                onChange={changeFieldQuantity}
-              />
-              <Field
-                name="amount"
-                type="number"
-                placeholder={`USDT :`}
-                value={amount}
-                quotation={quotation}
-                onChange={changeFieldAmount}
-              />
-              <div className="buttonPassedOrder">
-                <button
-                  className="buttonPassedOrder__Buy button"
-                  type="submit"
-                  onClick={() => setTypeAction('Buy')}
-                >
-                  Acheter
-                </button>
-                <button
-                  className="buttonPassedOrder__Sell button"
-                  type="submit"
-                  onClick={() => setTypeAction('Sell')}
-                >
-                  Vendre
-                </button>
-              </div>
-            </form>
+      <h2 className="order__orderTitle"> Passer un ordre </h2>
+      <div className="order__graph">
+        <Graphic pairName={pairname} theme={theme} />
+        <div className="order__passed">
+          <div className="order__pair">
+            <img className="order__pair-logo" src={logo} alt={pairname}></img>
+            <div className="order__pair-pairname"> {pairname} </div>
+            <div className="order__pair-subtitle"> {name} </div>
           </div>
+          <div className="order__price">
+            <div className="order__price-name"> 1 {symbol} = </div>
+            <div className="order__price-quotation">Cotation en chargement</div>
+            <div className="order__price-value"> USDT </div>
+          </div>
+          <div className={displaymMessage}> {message} </div>
+          <div className="order__usdAmout">
+            Fonds disponibles: {Amount.toLocaleString()}
+            USDT
+          </div>
+          <div className="order__cryptoAmount">
+            Quantité de {symbol}
+            detenus: {actualQuantityPair}
+          </div>
+          <form onSubmit={handleSubmit}>
+            <Field
+              name="quantity"
+              type="number"
+              placeholder={`${symbol} :`}
+              value={fieldCrypto}
+              quotation={quotation}
+              onChange={setFielCrypto}
+              changeAuto={setFieldAmount}
+            />
+            <Field
+              name="amount"
+              type="number"
+              placeholder={`USDT :`}
+              value={fieldAmount}
+              quotation={quotation}
+              onChange={setFieldAmount}
+              changeAuto={setFielCrypto}
+            />
+            <div className={`order__${displayButtonMax}`}>
+              <button
+                className="buttonMax--Max button"
+                type="button"
+                onClick={() => changeAutoValue()}
+              >
+                Maximum de cryptomonnaie 
+              </button>
+            </div>
+            <div className="buttonPassedOrder">
+              <button
+                className="buttonPassedOrder__Buy button"
+                type="submit"
+                onClick={() => setTypeAction("Buy")}
+              >
+                Acheter
+              </button>
+              <button
+                className="buttonPassedOrder__Sell button"
+                type="submit"
+                onClick={() => setTypeAction("Sell")}
+              >
+                Vendre
+              </button>
+            </div>
+          </form>
         </div>
       </div>
+    </div>
   );
 };
 
@@ -164,14 +179,10 @@ Order.proptypes = {
   pairname: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
-  amount: PropTypes.number.isRequired,
   USDAmount: PropTypes.number.isRequired,
   actualQuantityPair: PropTypes.number.isRequired,
   handlePlaceTheOrder: PropTypes.func.isRequired,
   handleDiplayMessageOrder: PropTypes.func.isRequired,
-  changeFieldAmount: PropTypes.func.isRequired,
-  changeFieldQuantity: PropTypes.func.isRequired,
   removeDataField: PropTypes.func.isRequired,
 };
 export default Order;

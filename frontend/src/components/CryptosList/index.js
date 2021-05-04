@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,15 +13,13 @@ const Cryptos = ({
   loading,
   cryptos,
   toOrder,
-  manageChangeSearch,
-  search,
   manageLoad,
-  clearFieldSearch,
 }) => {
   let socket;
+  const [searchBar, setSearchBar] = useState('');
 
   const getFilteredCrypto = () => {
-    const loweredSearch = search.toLowerCase();
+    const loweredSearch = searchBar.toLowerCase();
     const filteredCryptoList = cryptos.filter((crypto) => {
       const loweredCryptoName = crypto.name.toLowerCase();
       const loweredCryptoSymbol = crypto.symbol.toLowerCase();
@@ -43,7 +41,6 @@ const Cryptos = ({
     manageLoad();
     return () => {
       socket.close();
-      clearFieldSearch();
     };
   }, []);
 
@@ -83,8 +80,8 @@ const Cryptos = ({
           <div className="cryptos__searchBar">
             <input
               className="cryptos_search"
-              onChange={(event) => manageChangeSearch(event.target.value)}
-              value={search}
+              onChange={(event) =>setSearchBar(event.target.value)}
+              value={searchBar}
               type="text"
               placeholder="Rechercher"
             />
