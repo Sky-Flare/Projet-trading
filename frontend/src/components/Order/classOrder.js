@@ -8,7 +8,12 @@ import Field from "./Field";
 import "./order.scss";
 let socket;
 
-//PAGE DE PASSATION D'ORDRE
+/* 
+FIXME:FICHIER QUI NE SERT PLUS A RIEN,
+ NOUS ETIONS PASSE EN CLASS AVANT MAIS J'AI CHANGER EN COMPOSANT EN UTILISANT LES HOOK.
+PLUS PROPRE ET PRATIQUE
+FICHIER ACTUEL components->Order->index.js
+*/
 
 class Order extends Component {
   constructor(props) {
