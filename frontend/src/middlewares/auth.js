@@ -31,7 +31,6 @@ export default (store) => (next) => (action) => {
           password,
         },
       ).then((response) => {
-        console.log(response);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('username', response.data.data.username);
         localStorage.setItem('USDAmount', response.data.data.USDAmount);
@@ -93,7 +92,6 @@ export default (store) => (next) => (action) => {
           password_second: newPasswordVerify,
         }),
       ).then((response) => {
-        console.log(response);
         store.dispatch(displayMessageNewPass(response.data.message));
       }).catch((error) => {
         store.dispatch(displayMessageNewPass(error.response.data.message))

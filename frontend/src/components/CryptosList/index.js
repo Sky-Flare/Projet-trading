@@ -43,15 +43,13 @@ const Cryptos = ({
     manageLoad();
     return () => {
       socket.close();
-      clearFieldSearch;
+      clearFieldSearch();
     };
   }, []);
 
   //Effet de mise à jour seulement quand "loading" change
   useEffect(() => {
     //Tableau des cryptomonnaies
-    console.log(cryptosList);
-    console.log("websocket");
     let streams = "";
     cryptosList.forEach((crypto) => {
       streams += "/" + crypto.pairName.toLowerCase() + "@ticker";

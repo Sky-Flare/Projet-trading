@@ -49,7 +49,6 @@ export default (store) => (next) => (action) => {
         store.dispatch(saveHisPortfolio(response.data));
       }).catch((error) => {
         console.log(error.response);
-        store.dispatch(saveHisPortfolio(error.response.data.message));
       });
       next(action);
       break;
@@ -63,7 +62,6 @@ export default (store) => (next) => (action) => {
         store.dispatch(saveHisRank(response.data.rank));
       }).catch((error) => {
         console.log(error.response);
-        store.dispatch(saveHisRank(error.response.data.message));
       });
       next(action);
       break;

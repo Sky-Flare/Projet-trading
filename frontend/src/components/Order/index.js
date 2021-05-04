@@ -1,103 +1,96 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useEffect, useState  } from "react";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
 
 import Graphic from "./Graphic";
 import Field from "./Field";
-// == Import Scss
 import "./order.scss";
-let socket;
 
 //PAGE DE PASSATION D'ORDRE
 
-class Order extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { typeAction: "", quotation: null };
-  }
+const Order = ({
+  quantity,
+  amount,
+  USDAmount,
+  pairname,
+  name,
+  actualQuantityPair,
+  message,
+  handlePlaceTheOrder,
+  handleDiplayMessageOrder,
+  changeFieldQuantity,
+  changeFieldAmount,
+  symbol,
+  logo,
+  theme,
+  removeDataField,
+}) => {
+  let socket;
+  const [typeAction, setTypeAction] = useState('');
+  const [quotation, setQuotation] = useState(0);
 
-  //Mise en place de la quoation en temps réel via l'API de Bianance 
-  componentDidMount() {
-    const pair = "/" + this.props.pairname.toLowerCase() + "@aggTrade";
+  //Montage: websocket ppour la cotation
+  //Démontage fermeture de websocket et remise à zéro des champs de saisie
+  useEffect(() => {
+    const pair = "/" + pairname.toLowerCase() + "@aggTrade";
     socket = new WebSocket(`wss://stream.binance.com:9443/ws${pair}`);
     socket.onmessage = (event) => {
       const objectData = JSON.parse(event.data);
       const DOMquote = document.querySelector(".order__price-quotation");
-      let quote = objectData.p;
+      let quote = parseFloat(objectData.p);
       DOMquote.textContent = quote;
-      this.state.quotation = quote;
+      setQuotation(quote);
     };
-  }
+    return () => {
+      socket.close();
+      removeDataField();
+    };
+  }, []);
 
-  //Nettoyage des input et fermetur de websocket
-  componentWillUnmount() {
-    socket.close();
-    this.props.removeDataField();
-  }
-
-  render() {
-    const {
-      quantity,
-      amount,
-      USDAmount,
-      pairname,
-      name,
-      actualQuantityPair,
-      message,
-      handlePlaceTheOrder,
-      handleDiplayMessageOrder,
-      changeFieldQuantity,
-      changeFieldAmount,
-      symbol,
-      logo,
-      theme,
-    } = this.props;
-
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      if (quantity === 0) {
-        handleDiplayMessageOrder("Saisissez un nombre");
-      } else {
-        if (this.state.typeAction === "Buy") {
-          if (USDAmount < quantity * this.state.quotation) {
-            handleDiplayMessageOrder("Vous n'avez pas les fonds necessaires");
-          } else if (
-            document.querySelector(".order__price-quotation").textContent ==
-            "Cotation en chargement"
-          ) {
-            handleDiplayMessageOrder(
-              "Patientez pendant le chargement de la valorisation"
-            );
-          } else {
-            handlePlaceTheOrder(this.state.typeAction, this.state.quotation);
-          }
-        }
-        if (this.state.typeAction === "Sell") {
-          if (actualQuantityPair < quantity) {
-            handleDiplayMessageOrder(`Vous n\'avez pas assez de ${name}`);
-          } else if (
-            document.querySelector(".order__price-quotation").textContent ==
-            "Cotation en chargement"
-          ) {
-            handleDiplayMessageOrder(
-              "Patientez pendant le chargement de la cotation"
-            );
-          } else {
-            handlePlaceTheOrder(this.state.typeAction, this.state.quotation);
-          }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (quantity === 0) {
+      handleDiplayMessageOrder("Saisissez un nombre");
+    } else {
+      if (typeAction === "Buy") {
+        if (USDAmount < quantity * quotation) {
+          handleDiplayMessageOrder("Vous n'avez pas les fonds necessaires");
+        } else if (
+          document.querySelector(".order__price-quotation").textContent ==
+          "Cotation en chargement"
+        ) {
+          handleDiplayMessageOrder(
+            "Patientez pendant le chargement de la valorisation"
+          );
+        } else {
+          handlePlaceTheOrder(typeAction, quotation);
         }
       }
-    };
-
-    const Amount = Math.round(USDAmount * 100) / 100;
-    let displaymMessage =
-      message != null ? "order__messageDisplay" : "order__messageNone";
-    if (message === "Ordre Enregistré") {
-      displaymMessage = "order__messageDisplay-green";
+      if (typeAction === "Sell") {
+        if (actualQuantityPair < quantity) {
+          handleDiplayMessageOrder(`Vous n\'avez pas assez de ${name}`);
+        } else if (
+          document.querySelector(".order__price-quotation").textContent ==
+          "Cotation en chargement"
+        ) {
+          handleDiplayMessageOrder(
+            "Patientez pendant le chargement de la cotation"
+          );
+        } else {
+          handlePlaceTheOrder(typeAction, quotation);
+        }
+      }
     }
-    
-    return (
-      <div className="order">
+  };
+
+  const Amount = Math.round(USDAmount * 100) / 100;
+  let displaymMessage =
+    message != null ? "order__messageDisplay" : "order__messageNone";
+  if (message === "Ordre Enregistré") {
+    displaymMessage = "order__messageDisplay-green";
+  }
+
+  return (
+    <div className="order">
         <h2 className="order__orderTitle"> Passer un ordre </h2>
         <div className="order__graph">
           <Graphic pairName={pairname} theme={theme} />
@@ -130,7 +123,7 @@ class Order extends Component {
                 type="number"
                 placeholder={`${symbol} :`}
                 value={quantity}
-                quotation={this.state.quotation}
+                quotation={quotation}
                 onChange={changeFieldQuantity}
               />
               <Field
@@ -138,21 +131,21 @@ class Order extends Component {
                 type="number"
                 placeholder={`USDT :`}
                 value={amount}
-                quotation={this.state.quotation}
+                quotation={quotation}
                 onChange={changeFieldAmount}
               />
               <div className="buttonPassedOrder">
                 <button
                   className="buttonPassedOrder__Buy button"
                   type="submit"
-                  onClick={() => (this.state.typeAction = "Buy")}
+                  onClick={() => setTypeAction('Buy')}
                 >
                   Acheter
                 </button>
                 <button
                   className="buttonPassedOrder__Sell button"
                   type="submit"
-                  onClick={() => (this.state.typeAction = "Sell")}
+                  onClick={() => setTypeAction('Sell')}
                 >
                   Vendre
                 </button>
@@ -161,8 +154,24 @@ class Order extends Component {
           </div>
         </div>
       </div>
-    );
-  }
-}
+  );
+};
 
+Order.proptypes = {
+  symbol: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
+  theme: PropTypes.string.isRequired,
+  pairname: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  amount: PropTypes.number.isRequired,
+  USDAmount: PropTypes.number.isRequired,
+  actualQuantityPair: PropTypes.number.isRequired,
+  handlePlaceTheOrder: PropTypes.func.isRequired,
+  handleDiplayMessageOrder: PropTypes.func.isRequired,
+  changeFieldAmount: PropTypes.func.isRequired,
+  changeFieldQuantity: PropTypes.func.isRequired,
+  removeDataField: PropTypes.func.isRequired,
+};
 export default Order;

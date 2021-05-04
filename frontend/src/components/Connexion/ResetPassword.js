@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';v
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
