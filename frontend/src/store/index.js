@@ -11,7 +11,7 @@ import dashboard from 'src/middlewares/dashboard';
 
 
 // Import du reducer combine
-import reducer from 'src/reducers';
+import reducer from 'src/reducers/index.js';
 
 const store = createStore(reducer, composeWithDevTools(
   applyMiddleware(auth, cryptos, order, ranking, dashboard),
