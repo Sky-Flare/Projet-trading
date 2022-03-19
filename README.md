@@ -8,5 +8,3 @@ Symfony pour développer une Api rest
 
 ## Frontend
 React redux axios
-
-### Projet en cours de réalisation
